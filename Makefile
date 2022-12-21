@@ -6,7 +6,7 @@
 #    By: aelarbid <aelarbid@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/10 17:12:07 by aelarbid          #+#    #+#              #
-#    Updated: 2022/12/11 19:57:00 by aelarbid         ###   ########.fr        #
+#    Updated: 2022/12/21 02:38:54 by aelarbid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,11 @@ CC= gcc
 NAME = fractol
 FLAGS= -Wall -Werror -Wextra
 RM = rm
-FILES= ./src/main.c
+FILES= ./src/main.c\
+	./src/init.c\
+	./src/printPx.c\
+	./src/mandelbrot/mandlbrotSet.c \
+	./src/julia/juliaSet.c
 OBJ= $(FILES:%.c=%.o)
 MLX= -lmlx -framework OpenGL -framework AppKit
 MAKE= make

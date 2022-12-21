@@ -1,6 +1,28 @@
 #include "./fractol.h"
 
 
+
+
+
+
+t_init *init_dependency(int width, int hight)
+{
+    t_init  *dependency;
+
+    dependency = malloc(sizeof(t_init));
+	dependency->width = width;
+	dependency->hight = hight;
+	dependency->x.max = 1.7;
+	dependency->x.min = -2.0;
+	dependency->y.max = 1.2;
+	dependency->y.min = -1.2;
+	dependency->max_itr = 100;
+	dependency->mlx = mlx_init();
+	dependency->win = mlx_new_window(dependency->mlx, width, hight, "fractol");
+	dependency->img = mlx_new_image(dependency->mlx, width, hight);
+	return (dependency);
+}
+
 int	key_hook(int button, int x, int y, t_init *param)
 {
 	printf("%d , %d ,%d \n",button,x,y);
@@ -24,13 +46,14 @@ int	key_hook(int button, int x, int y, t_init *param)
 	mlx_clear_window(param->mlx,param->win);
 	mandelbrotSet(param);
 	return (0);
+
 }
 
 int	main(void)
 {
 	t_init *dependency;
-	
-	dependency = init_dependency(800, 600);
+
+	dependency = init_dependency(1200, 900);
 	mandelbrotSet(dependency);
 	mlx_mouse_hook(dependency->win, &key_hook, dependency);
 	mlx_loop(dependency->mlx);
