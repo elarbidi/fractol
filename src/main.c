@@ -1,37 +1,71 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aelarbid <aelarbid@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/21 22:34:00 by aelarbid          #+#    #+#             */
+/*   Updated: 2022/12/22 05:51:22 by aelarbid         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./fractol.h"
 
-
-int	key_hook(int button, int x, int y, t_init *param)
+int	key_hook(int keycode, t_init *vars)
 {
-	printf("%d , %d ,%d \n",button,x,y);
-	float range_x = ((float)x/param->width)*(param->x.max -(param->x.min))+(param->x.min);
-	float range_y = ((float)y/param->hight)*(param->y.max - (param->y.min))+(param->y.min);
-	if(button == 4)
-	{
-		param->x.min = range_x + ((param->x.min - range_x)*0.7);
-		param->x.max = range_x + ((param->x.max - range_x)*0.7);
-		param->y.min = range_y + ((param->y.min - range_y)*0.7);
-		param->y.max = range_y + ((param->y.max - range_y)*0.7);
-		param->max_itr += 2;
-	}else if(button == 5){
-		param->x.min = range_x + ((param->x.min - range_x)*1.1);
-		param->x.max = range_x + ((param->x.max - range_x)*1.1);
-		param->y.min = range_y + ((param->y.min - range_y)*1.1);
-		param->y.max = range_y + ((param->y.max - range_y)*1.1);
-		param->max_itr -= 2;
-
-	}
-	mlx_clear_window(param->mlx,param->win);
-	mandelbrotSet(param);
+	if (keycode == 53)
+		exit(1);
+	free(vars);
 	return (0);
 }
 
-int	main(void)
+int	closea(t_init *dep)
 {
-	t_init *dependency;
-	
+	free(dep);
+	exit(1);
+	return (1);
+}
+
+int	main(int ac, char **av)
+{
+	t_init	*dependency;
+
 	dependency = init_dependency(800, 600);
-	mandelbrotSet(dependency);
-	mlx_mouse_hook(dependency->win, &key_hook, dependency);
+	if (ac > 1 && ft_strlen(av[1]) && (!ft_strncmp(av[1], "j1", 2)
+			|| !ft_strncmp(av[1], "j2", 2) || !ft_strncmp(av[1], "m", 2)))
+	{
+		if (!ft_strncmp(av[1], "j1", 2) && ft_strlen(av[1]) == 2)
+		{
+			dependency->j.x = 0.835 ;
+			dependency->j.y = 0.2321;
+			juliatset(dependency);
+			mlx_mouse_hook(dependency->win, &jzoom, dependency);
+		}
+		else if (!ft_strncmp(av[1], "j2", 2) && ft_strlen(av[1]) == 2)
+		{
+			dependency->j.x = -0.285 ;
+			dependency->j.y = -0.01;
+			juliatset(dependency);
+			mlx_mouse_hook(dependency->win, &jzoom, dependency);
+		}
+		else if (!ft_strncmp(av[1], "m", 1) && ft_strlen(av[1]) == 1)
+		{
+			mandelbrotset(dependency);
+			mlx_mouse_hook(dependency->win, &mzoom, dependency);
+		}
+	}
+	else
+	{
+		ft_putstr_fd("////////////////////////////\n", 2);
+		ft_putstr_fd("//   use the argument    //\n", 2);
+		ft_putstr_fd("//   j1 for julia set 1  //\n", 2);
+		ft_putstr_fd("//   j1 for julia set 2  //\n", 2);
+		ft_putstr_fd("// m for Mandelbrot set 1//\n", 2);
+		ft_putstr_fd("///////////////////////////\n", 2);
+		return (0);
+	}
+	mlx_key_hook(dependency->win, &key_hook, dependency);
+	mlx_hook(dependency->win, 17, 0, &closea, dependency);
 	mlx_loop(dependency->mlx);
 }

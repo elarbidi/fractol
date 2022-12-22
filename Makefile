@@ -6,7 +6,7 @@
 #    By: aelarbid <aelarbid@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/10 17:12:07 by aelarbid          #+#    #+#              #
-#    Updated: 2022/12/21 02:38:54 by aelarbid         ###   ########.fr        #
+#    Updated: 2022/12/22 00:10:56 by aelarbid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,9 @@ FILES= ./src/main.c\
 	./src/init.c\
 	./src/printPx.c\
 	./src/mandelbrot/mandlbrotSet.c \
-	./src/julia/juliaSet.c
+	./src/mandelbrot/mZoom.c \
+	./src/julia/juliaSet.c\
+	./src/julia/jZoom.c
 OBJ= $(FILES:%.c=%.o)
 MLX= -lmlx -framework OpenGL -framework AppKit
 MAKE= make

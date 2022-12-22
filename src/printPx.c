@@ -6,16 +6,14 @@
 /*   By: aelarbid <aelarbid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 01:43:14 by aelarbid          #+#    #+#             */
-/*   Updated: 2022/12/21 01:43:17 by aelarbid         ###   ########.fr       */
+/*   Updated: 2022/12/22 05:49:23 by aelarbid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./fractol.h"
 
-
-
-
-void printPixels(void *mlx_ptr, void *win_ptr, int x, int y,int itr){
+void	printpixels(t_init *dep, int x, int y, int itr)
+{
 	static const int	color[15] = {
 		4333071, //brown
 		1640218, //	dark purple
@@ -33,6 +31,6 @@ void printPixels(void *mlx_ptr, void *win_ptr, int x, int y,int itr){
 		10049280, //brown
 		6960131 //dark brown
 	};
-	mlx_pixel_put(mlx_ptr,win_ptr, x, y,color[itr % 16]);
 
+	mlx_pixel_put(dep->mlx, dep->win, x, y, color[itr % 16]);
 }

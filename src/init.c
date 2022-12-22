@@ -6,17 +6,17 @@
 /*   By: aelarbid <aelarbid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 01:23:50 by aelarbid          #+#    #+#             */
-/*   Updated: 2022/12/21 01:24:48 by aelarbid         ###   ########.fr       */
+/*   Updated: 2022/12/22 05:48:53 by aelarbid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./fractol.h"
 
-t_init *init_dependency(int width, int hight)
+t_init	*init_dependency(int width, int hight)
 {
-    t_init  *dependency;
+	t_init	*dependency;
 
-    dependency = malloc(sizeof(t_init));
+	dependency = malloc(sizeof(t_init));
 	dependency->width = width;
 	dependency->hight = hight;
 	dependency->x.max = 0.7;
